@@ -1,0 +1,67 @@
+<p><b>List of Countries</b></p>
+
+
+
+<div>
+  <table mat-table [dataSource]="dataSource">
+    <!--- Note that these columns can be defined in any order.
+  The actual rendered columns are set as a property on the row definition" -->
+    <!-- Position Column -->
+    <tr>
+      <ng-container matColumnDef="name" matSort>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+        <td mat-cell *matCellDef="let element" (click)="getMoreInfo(element.name)" >
+
+
+          {{element.name}}
+        </td>
+      </ng-container>
+    </tr>
+
+    <tr>
+      <ng-container matColumnDef="flag" matSort>
+        <th mat-header-cell *matHeaderCellDef> Flag </th>
+        <td mat-cell *matCellDef="let element"> <img [src]="element.flag" /> </td>
+      </ng-container>
+    </tr>
+
+    
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let element; columns: displayedColumns"></tr>
+
+
+  </table>
+
+  <mat-paginator [length]="50" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
+</div>
+
+
+<div *ngIf="isShown">
+  <table class="gridList">
+    <tr>
+      <th>More Information</th>
+    </tr>
+    <tr>
+      <td>Population: {{population}}</td>
+    </tr>
+    <tr>
+      <td>Capital: {{capital}}</td>
+    </tr>
+    <tr>
+      <td>Timezone: {{timezone }}</td>
+    </tr>
+    <tr *ngFor="let cur of currencies">
+      <td>Currencies: Code - {{cur.code }}, Name - {{cur.name}}, Symbol - {{cur.symbol}}</td>
+    </tr>
+    <tr *ngFor="let item of clickedCountry">
+      <td>Languages: {{item.languages | json}}</td>
+    </tr>
+    
+    <tr>
+      <td>Borders: {{borders}}</td>
+    </tr>
+  </table>
+</div>
+
+
